@@ -1,11 +1,19 @@
-FROM python:latest
+FROM ubuntu:20.04
+
+RUN apt-get update
+
+RUN apt-get install -y gcc musl-dev python3-pip libgl1
+
 
 COPY . ./
 
-RUN pip install scipy
-RUN pip install torch===1.6.0 torchvision===0.7.0 -f https://download.pytorch.org/whl/torch_stable.html
+RUN cd yolov5
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install   -r requirements.txt 
+
+RUN cd ..
+
+RUN pip install  -r requirements.txt
 
 EXPOSE 8000
 
