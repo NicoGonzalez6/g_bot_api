@@ -30,14 +30,14 @@ app.add_middleware(
 )
 
 
-@app.post("/object-to-json", tags=["Image to Json"],  status_code=status.HTTP_200_OK)
+@app.post("/Modelo-Vainas", tags=["Image to Json"],  status_code=status.HTTP_200_OK)
 async def amount_sheaths_of_wheat(file: bytes = File(...)):
     input_image = get_image_from_bytes(file)
     results = model(input_image)
     return {"vainas": len(results.pandas().xyxy[0])}
 
 
-@app.post("/object-to-json-v2", tags=["Image to Json"],  status_code=status.HTTP_200_OK)
+@app.post("/Modelo-Granos", tags=["Image to Json"],  status_code=status.HTTP_200_OK)
 async def amount_sheaths_of_wheat(file: bytes = File(...)):
     input_image = get_image_from_bytes(file)
     results = modelv2(input_image)
@@ -68,7 +68,7 @@ async def amount_sheaths_of_wheat(file: bytes = File(...)):
     return mydic
 
 
-@app.post("/object-to-json-v1/v2", tags=["Image to Json"],  status_code=status.HTTP_200_OK)
+@app.post("/Vainas-Semillas-Conteo", tags=["Image to Json"],  status_code=status.HTTP_200_OK)
 async def amount_sheaths_of_wheat(file: bytes = File(...)):
     input_image = get_image_from_bytes(file)
     resultsv2 = modelv2(input_image)
@@ -113,7 +113,7 @@ async def amount_sheaths_of_wheat(file: bytes = File(...)):
     return {"inferencia_vainas": {"vainas_totales": len(results.pandas().xyxy[0])}, "inferencia_granos": mydic, "conteo_final": final_value}
 
 
-@app.post("/object-to-img", tags=["Image to Image"], status_code=status.HTTP_200_OK)
+@app.post("/Modelo-Vainas-img", tags=["Image to Image"], status_code=status.HTTP_200_OK)
 async def return_image_scanned(file: bytes = File(...)):
 
     input_image = get_image_from_bytes(file)
@@ -127,7 +127,7 @@ async def return_image_scanned(file: bytes = File(...)):
     return Response(content=bytes_io.getvalue(), media_type="image/jpeg")
 
 
-@app.post("/object-to-img-v2", tags=["Image to Image"], status_code=status.HTTP_200_OK)
+@app.post("/Modelo-Granos-img", tags=["Image to Image"], status_code=status.HTTP_200_OK)
 async def return_image_scanned(file: bytes = File(...)):
 
     input_image = get_image_from_bytes(file)
