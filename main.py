@@ -41,13 +41,29 @@ async def amount_sheaths_of_wheat(file: bytes = File(...)):
 async def amount_sheaths_of_wheat(file: bytes = File(...)):
     input_image = get_image_from_bytes(file)
     results = modelv2(input_image)
-    mydic = {}
+    mydic = {"semillas": 0}
     pred = results.pandas().xyxy[0]
+    mydic["vainas_totales"] = len(results.pandas().xyxy[0])
+
     for index, row in pred.iterrows():
         if row['name'] not in mydic:
             mydic[row['name']] = 1
         else:
             mydic[row['name']] += 1
+
+    for value in mydic:
+        if value == "cuatro":
+            mydic["semillas"] = mydic["semillas"] + \
+                mydic[value] * 4
+        elif value == "tres":
+            mydic["semillas"] = mydic["semillas"] + \
+                mydic[value] * 3
+        elif value == "dos":
+            mydic["semillas"] = mydic["semillas"] + \
+                mydic[value] * 2
+        elif value == "uno":
+            mydic["semillas"] = mydic["semillas"] + \
+                mydic[value] * 1
 
     return mydic
 
