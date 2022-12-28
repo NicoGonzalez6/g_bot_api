@@ -5,7 +5,15 @@ import io
 
 def get_yolov5():
     # local best.pt
-    model = torch.hub.load('./yolov5', 'custom', path='./model/best.pt', source='local')  # local repo
+    model = torch.hub.load(
+        './yolov5', 'custom', path='./model/best.pt', source='local')  # local repo
+    return model
+
+
+def get_yolov5_v2():
+    # local best.pt
+    model = torch.hub.load(
+        './yolov5', 'custom', path='./model/soja_granos_vainas.pt', source='local')  # local repo
     return model
 
 

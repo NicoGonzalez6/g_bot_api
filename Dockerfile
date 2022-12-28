@@ -1,11 +1,26 @@
-FROM python:latest
+FROM ubuntu:18.04
 
 COPY . ./
 
-RUN pip install scipy
-RUN pip install torch===1.6.0 torchvision===0.7.0 -f https://download.pytorch.org/whl/torch_stable.html
+RUN apt-get update && apt-get install -y \
+    software-properties-common
+RUN add-apt-repository universe
+RUN apt-get install -y \
+    python3.8 \
+    python3-pip
 
-RUN pip install --no-cache-dir -r requirements.txt
+
+RUN pip3 install --upgrade pip
+RUN apt install ffmpeg libsm6 libxext6 libgl1-mesa-dev -y
+
+
+RUN pip install -r requirements.txt
+
+RUN cd yolov5
+
+RUN pip install -r requirements.txt
+
+RUN cd ..
 
 EXPOSE 8000
 
