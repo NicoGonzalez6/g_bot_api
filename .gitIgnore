@@ -1,0 +1,4 @@
+__pycache__/
+g_bot
+Dockerfile
+.dockerIgnore
